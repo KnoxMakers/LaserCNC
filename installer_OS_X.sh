@@ -1,7 +1,7 @@
 #!/bin/bash
 
 KM_EXTENSIONS_DIR='./inkscape-extensions'
-INKSCAPE_EXTENSIONS_DIR=$HOME/'.config/inkscape/extensions/ck'
+INKSCAPE_EXTENSIONS_DIR=$HOME/'.config/inkscape/extensions/'
 
 echo 'Installing KnoxMakers LaserCNC extension for Inkscape...'
 echo ''
