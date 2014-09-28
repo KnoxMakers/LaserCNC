@@ -4576,15 +4576,19 @@ class Gcodetools(inkex.Effect):
                     curves = curves_	
 
                     self.options.path_to_gcode_order = 'path by path'
-
+                    # Added Midas Touch: To 'engrave' first and 'cut' lastmove 'cut'
+                    #   by moving the gcode with 'cut' power to the end (after 'engrave')
                 if self.options.path_to_gcode_order == 'path by path':
                     if self.options.path_to_gcode_sort_paths :
                         keys = sort_curves( [curve[1] for curve in curves] )
                     else :
                         keys = range(len(curves))
+
+                    cutgcode = ""
                     for key in keys:
                         d = curves[key][0][1]
                         dopath = True
+                        MidasTouch = "Unknown"
                         
                         for step in range( 0,  int(math.ceil( abs((zs-d)/self.tools[layer][0]["depth step"] )) ) ):
                             z = max(d, zs - abs(self.tools[layer][0]["depth step"]*(step+1)))
@@ -4603,22 +4607,39 @@ class Gcodetools(inkex.Effect):
                                     self.options.pulserate = kmlaser_presets._presets[self.options.pmaterial][ppwr][0]
                                     self.options.feedrate = kmlaser_presets._presets[self.options.pmaterial][ppwr][1]
                                     self.options.laserpower = kmlaser_presets._presets[self.options.pmaterial][ppwr][2]
+                                    MidasTouch = ppwr
 
                             elif self.options.pmaterial != "custom" and self.options.ppower != "custom":
                                 self.options.pulserate = kmlaser_presets._presets[self.options.pmaterial][self.options.ppower][0] 
                                 self.options.feedrate = kmlaser_presets._presets[self.options.pmaterial][self.options.ppower][1]
                                 self.options.laserpower = kmlaser_presets._presets[self.options.pmaterial][self.options.ppower][2]
-
+                                MidasTouch = self.options.ppower
 
                             if dopath:
-                                gcode += gcode_comment_str("\nStart cutting path id: %s"%curves[key][0][0])
-                                if curves[key][0][2] != "()" :
-                                    gcode += curves[key][0][2] # add comment
-                            
-                                for curve in curves[key][1]:
-                                    gcode += self.generate_gcode(curve, layer, z)
+                                if MidasTouch == 'cut':
+                                    cutgcode += gcode_comment_str("\nStart - Midas Touch to: %s"%MidasTouch)
+                                    cutgcode += gcode_comment_str("Start cutting path id: %s"%curves[key][0][0])
+                                    if curves[key][0][2] != "()" :
+                                        cutgcode += curves[key][0][2] # add comment
 
-                                gcode += gcode_comment_str("End cutting path id: %s\n\n"%curves[key][0][0])
+                                    for curve in curves[key][1]:
+                                        cutgcode += self.generate_gcode(curve, layer, z)
+
+                                    cutgcode += gcode_comment_str("End cutting path id: %s"%curves[key][0][0])
+                                    cutgcode += gcode_comment_str("End - Midas Touch to: %s\n\n"%MidasTouch)
+                                else:
+                                    gcode += gcode_comment_str("\nStart - Midas Touch to: %s"%MidasTouch)
+                                    gcode += gcode_comment_str("Start cutting path id: %s"%curves[key][0][0])
+                                    if curves[key][0][2] != "()" :
+                                        gcode += curves[key][0][2] # add comment
+
+                                    for curve in curves[key][1]:
+                                        gcode += self.generate_gcode(curve, layer, z)
+
+                                    gcode += gcode_comment_str("End cutting path id: %s"%curves[key][0][0])
+                                    gcode += gcode_comment_str("End - Midas Touch to: %s\n\n"%MidasTouch)
+                    # 'Midas Touch to: cut' goes here, after writing gcode for all 'engrave' paths
+                    gcode += cutgcode
 
                 else:	# pass by pass
                     mind = min( [curve[0][1] for curve in curves] )	
