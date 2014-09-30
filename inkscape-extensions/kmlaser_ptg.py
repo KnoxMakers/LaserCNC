@@ -4568,6 +4568,7 @@ class Gcodetools(inkex.Effect):
                 #for curve in curves :
                 #    for subcurve in curve[1] :
                 #        self.draw_curve(subcurve, layer)
+                CutLast = True
 
                 if self.options.path_to_gcode_order == 'subpath by subpath':
                     curves_ = []
@@ -4616,7 +4617,7 @@ class Gcodetools(inkex.Effect):
                                 MidasTouch = self.options.ppower
 
                             if dopath:
-                                if MidasTouch == 'cut':
+                                if MidasTouch == 'cut' and CutLast == True:
                                     cutgcode += gcode_comment_str("\nStart - Midas Touch to: %s"%MidasTouch)
                                     cutgcode += gcode_comment_str("Start cutting path id: %s"%curves[key][0][0])
                                     if curves[key][0][2] != "()" :
