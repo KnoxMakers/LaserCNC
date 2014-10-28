@@ -1,0 +1,24 @@
+.col-md-9
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Add New User
+    .panel-body
+      %form.form-horizontal{action: "/users", method: "post"}
+        .form-group
+          %label.col-md-4.control-label{for: "username"} Username
+          .col-md-4
+            %input#firstname.form-control.input-md{name: 'username', type: "text", placeholder: "Username", required: ''}
+        .form-group
+          %label.col-md-4.control-label{for: "firstname"} First Name
+          .col-md-4
+            %input#firstname.form-control.input-md{name: 'firstname', type: "text", placeholder: "First Name", required: ''}
+        .form-group
+          %label.col-md-4.control-label{for: "lastname"} Last Name
+          .col-md-4
+            %input#lastname.form-control.input-md{name: 'lastname', type: "text", placeholder: "Last Name", required: ''}
+        .form-group
+          %label.col-md-4.control-label{for: "email"} Email
+          .col-md-4
+            %input#email.form-control.input-md{name: 'email', type: "text", placeholder: "Email", required: ''}
+        %button.col-md-2.col-md-offset-5.btn.btn-default{type: "submit"} Add User
+

@@ -1,0 +1,53 @@
+%link{href: "/css/fileinput.css", :type => "text/css", :rel => "stylesheet" }
+%h1
+  Files
+#alert-wrapper.col-md-12
+.col-md-6
+  %form{method:"post", enctype:'multipart/form-data', action: "/files", role:'form'}
+    %input#userfile{type:'file',name:'userfile'}    
+    %label
+      %input{type: 'checkbox', name: 'public'}
+      Make File Public (Anyone will be able to see this file)
+.col-md-12
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        Uploaded Files
+    .panel-body
+      %table.table
+        %thead
+          %tr
+            %th.col-md-5 Filename
+            %th.col-md-2 Public
+            %th Actions
+        %tbody
+          - @files.each do |f|
+            %tr
+              %td.filename= f.filename
+              %td.public= f.public
+              %td.actions
+                %a.btn.btn-primary.load{href: f.load_path} Load
+                %a.btn.btn-default.public{href: f.public_path} Make Public
+                %a.btn.btn-danger.delete{href: f.delete_path} Delete
+.col-md-12
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        Public Files
+    .panel-body
+      %table.table
+        %thead
+          %tr
+            %th.col-md-5 Filename
+            %th.col-md-2 Owner
+            %th Actions
+        %tbody
+          - @public.each do |f|
+            %tr
+              %td.filename= f.filename
+              %td.owner= f.user.username
+              %td.actions
+                %a.btn.btn-primary.load{href: f.load_path} Load
+
+%script{src: "/js/fileinput.js"}
+%script{src: "/js/files.js"}

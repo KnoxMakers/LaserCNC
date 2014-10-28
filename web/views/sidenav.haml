@@ -1,0 +1,18 @@
+%ul.nav.nav-pills.nav-stacked
+  %li{class: ('active' if request.path_info == '/')}
+    %a{href: "/"}
+      %i.glyphicon.glyphicon-home{style: "margin-right: 5px;"}
+      Home
+  %li{class: ('active' if request.path_info == '/users')}
+    %a{href: "/users"}
+      %i.glyphicon.glyphicon-user{style: "margin-right: 5px;"}
+      Users
+  %li{class: ('active' if request.path_info == '/plans')}
+    %a{href: "/plans"}
+      %i.glyphicon.glyphicon-th-large{style: "margin-right: 5px;"}
+      Plans
+  %li{class: ('active' if request.path_info == '/payments')}
+    %a{href: "/payments"}
+      %i.glyphicon.glyphicon-usd{style: "margin-right: 5px;"}
+      Payments
+

@@ -1,0 +1,21 @@
+# Gemfile
+
+source 'https://rubygems.org'
+
+gem "sinatra"
+gem "sinatra-contrib" 
+gem "sqlite3"
+gem "activerecord"
+gem "sinatra-activerecord"
+gem "haml"
+gem "bcrypt"
+
+group :test, :development do
+  gem "rspec"
+  gem "rack-test"
+end
+
+group :production do
+  gem "passenger"
+end
+

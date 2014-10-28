@@ -1,0 +1,33 @@
+%html
+  %head
+    %title Goldfinger
+
+    %link{ :href => "/bootstrap/css/bootstrap.min.css", :type => "text/css", :rel => "stylesheet" }
+    %link{ :href => "/css/styles.css", :type => "text/css", :rel => "stylesheet" }
+
+    %script{ :type => "text/javascript", :src =>"/js/jquery-1.11.1.min.js"}
+    %script{ :type => "text/javascript", :src =>"/bootstrap/js/bootstrap.js"}
+  
+  %body
+    %div= haml :navbar
+    -if @current_user
+      .container-fluid
+        .row.row-offcanvas.row-offcanvas.left
+          #sidebar.col-md-3.col-md-2.sidebar-offcanvas{role: "navigation"}
+            %ul.nav.nav-sidebar
+              %li#files-tab{class: (@controller == 'files') && "active"}
+                %a{href:"/files"}Files
+              %li#command-tab{class: (@controller == 'control') && "active"}
+                %a{href:"/control"}Control
+              -#%li#about-tab{class: (@controller == 'about') && "active"}
+                %a{href:"/about"}About
+            %ul.nav.nav-sidebar
+              %li#profile-tab{class: (@controller == "profile") && "active"}
+                %a{href:"/profile"}User Profile
+              -if @current_user.is_admin?
+                %li#admin-tab{class: (@controller == "admin") && "active"}
+                  %a{href:"/admin"}Admin
+          .col-sm-9.col-md-10.main{style: "min-height: 600px;"}
+            = yield
+    -else
+      = yield

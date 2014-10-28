@@ -1,0 +1,25 @@
+%h1
+  Admin Panel
+
+%a.btn.btn-default{href: "/users/new"} Add User
+ 
+%table.table
+  %thead
+    %tr
+      %th Username
+      %th First Name
+      %th Last Name
+      %th Email
+      %th Admin
+      %th Actions
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.username
+        %td= user.firstname
+        %td= user.lastname
+        %td= user.email
+        %td= user.admin ? "Yes" : "No"
+        %td 
+          %a.btn.btn-default{href: "/user/#{user.id}/edit"} Edit
+          %a.btn.btn-danger{href: "/user/#{user.id}/delete"} Delete
