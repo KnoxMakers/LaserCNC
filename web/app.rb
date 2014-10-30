@@ -215,6 +215,14 @@ delete '/users/:id', :auth => [:admin] do
   # delete a user 
 end
 
+get '/users/pw', :auth => [:user] do
+  haml :changepw
+end
+
+post '/users/pw', :auth => [:user] do
+  redirect '/' 
+end
+
 get '/profile', :auth => [:user] do
   @controller = 'profile'
   haml :profile
