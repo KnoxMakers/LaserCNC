@@ -198,7 +198,7 @@ post '/users', :auth => [:admin] do
   new_user.password = params['password']
   new_user.password_confirmation = params['password_confirmation']
   new_user.email = params['email']
-  new_user.login = true
+  new_user.active = true
   new_user.admin = false
   new_user.save 
 
