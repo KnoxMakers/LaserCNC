@@ -1,0 +1,20 @@
+.col-md-9
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Change Password
+    .panel-body
+      %form.form-horizontal{action: "/users/pw", method: "post"}
+        .form-group
+          %label.col-md-4.control-label{for: "current_pw"} Current Password
+          .col-md-4
+            %input#current_pw.form-control.input-md{name: 'current_pw', type: "password", required: ''}
+        .form-group
+          %label.col-md-4.control-label{for: "new_pw"} New Password
+          .col-md-4
+            %input#new_pw.form-control.input-md{name: 'new_pw', type: "password", required: ''}
+        .form-group
+          %label.col-md-4.control-label{for: "new_pw_confirm"} New Password Confirm
+          .col-md-4
+            %input#new_pw_confirm.form-control.input-md{name: 'new_pw_confirm', type: "password", required: ''}
+        %button.col-md-2.col-md-offset-5.btn.btn-default{type: "submit"} Change
+
