@@ -1,2 +1,20 @@
 %h1
   User Profile
+.container
+  .col-md-4.col-md
+    .panel.panel-primary
+      .panel-heading
+        %h3.panel-title
+          %strong Change Password
+      .panel-body 
+        %form{role: "form", method: "post", action: '/profile/changepw'}
+          .form-group
+            %label{for: "oldpw"} Old Password
+            %input#oldpw.form-control{name: "oldpw", type: "password", placeholder: "Enter Old Password"}
+          .form-group
+            %label{for: "newpw"} New Password
+            %input#newpw.form-control{name: "newpw", type: "password", placeholder: "New Password"}
+          .form-group
+            %label{for: "newpw_confirm"} New Password Confirm
+            %input#newpw_confirm.form-control{name: "newpw_confirm", type: "password", placeholder: "New Password Confirm"}
+          %button.btn.btn-sm.btn-default{type: "submit"} Change

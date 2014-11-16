@@ -1,3 +1,7 @@
+# Check if files directory exists
+# create if it doesn't
+Dir.mkdir FILESTORE if !File.directory?(FILESTORE)
+
 # Create development admin account
 u = User.new
 u.username = 'admin'
