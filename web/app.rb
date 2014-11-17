@@ -117,7 +117,6 @@ module Goldfinger
       before_save :hash_filename
 
       def hash_filename
-	puts "Hashing Filename"
 	self.filehash = Digest::MD5.hexdigest(filename + FILESALT)
       end
 
@@ -258,7 +257,6 @@ module Goldfinger
 
     # This file really needs to return json
     post '/files', :auth => [:user] do
-      puts params
       uf = params[:userfile]
       filename = uf[:filename]
 
@@ -268,14 +266,6 @@ module Goldfinger
       redirect '/files' unless `file #{uf[:tempfile].path}` =~ /: ASCII text\n\z/
 
       filepath = File.join(FILESTORE,@current_user.username, filename)
-
-      puts ""
-      puts "FILESTORE: #{FILESTORE}"
-      puts "CURRENT USER: #{@current_user.username}"
-      puts "FILE NAME: #{uf[:filename]}"
-      puts "FILE PATH: #{filepath}"
-      puts "FILE PUBLIC: #{params[:public] ? "YES" : "NO"}"
-      puts ""
 
       if !@current_user.user_files.find_by(filename: filename)
 	f = UserFile.new
@@ -312,7 +302,6 @@ module Goldfinger
 	if f and (f.public or f.user_id == @current_user.id)
 	  # call axis_remote to load file
 	  rc = system "axis-remote #{f.filepath}"
-	  puts "RC: #{rc}"
 	  msg = rc ? "File loaded" : "ERROR while loading"
 	  retval = rc ? 'success' : 'error'
 	else
