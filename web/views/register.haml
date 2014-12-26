@@ -1,0 +1,37 @@
+.row-fluid
+  .col-md-6.col-md-offset-3
+    #flash
+.row-fluid
+  .col-md-6.col-md-offset-3{style: "margin-top: 30px;"}
+    .panel.panel-primary
+      .panel-heading
+        %h3.panel-title Register
+      .panel-body
+        %form#reg-form.form-horizontal{action: "/register", method: "post"}
+          .form-group
+            %label.col-md-3.col-md-offset-1.control-label{for: "username"} Username
+            .col-md-5
+              %input#username.form-control.input-md{name: 'user[username]', type: "text", placeholder: "Username", required: ''}
+          .form-group
+            %label.col-md-3.col-md-offset-1.control-label{for: "password"} Password
+            .col-md-5
+              %input#password.form-control.input-md{name: 'user[password]', type: "password", placeholder: "Password", required: ''}
+          .form-group
+            %label.col-md-3.col-md-offset-1.control-label{for: "password_confirmation"} Confirm Password 
+            .col-md-5
+              %input#password.form-control.input-md{name: 'user[password_confirmation]', type: "password", placeholder: "Password", required: ''}
+          .form-group
+            %label.col-md-3.col-md-offset-1.control-label{for: "firstname"} First Name
+            .col-md-5
+              %input#firstname.form-control.input-md{name: 'user[firstname]', type: "text", placeholder: "First Name", required: ''}
+          .form-group
+            %label.col-md-3.col-md-offset-1.control-label{for: "lastname"} Last Name
+            .col-md-5
+              %input#lastname.form-control.input-md{name: 'user[lastname]', type: "text", placeholder: "Last Name", required: ''}
+          .form-group
+            %label.col-md-3.col-md-offset-1.control-label{for: "email"} Email
+            .col-md-5
+              %input#email.form-control.input-md{name: 'user[email]', type: "text", placeholder: "Email", required: ''}
+          %button.col-md-2.col-md-offset-5.btn.btn-default{type: "submit"} Register
+
+%script{src: 'js/register.js'}

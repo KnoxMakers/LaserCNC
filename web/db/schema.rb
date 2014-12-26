@@ -11,14 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015051209) do
+ActiveRecord::Schema.define(version: 20141205023835) do
+
+  create_table "posts", force: true do |t|
+    t.string   "title"
+    t.text     "message"
+    t.integer  "user_id"
+    t.datetime "created_at"
+  end
 
   create_table "user_files", force: true do |t|
-    t.string  "filename"
-    t.string  "filepath"
-    t.string  "filehash"
-    t.boolean "public"
-    t.integer "user_id"
+    t.string   "filename"
+    t.string   "filepath"
+    t.string   "filehash"
+    t.boolean  "public"
+    t.integer  "user_id"
+    t.datetime "created_at"
   end
 
   create_table "users", force: true do |t|

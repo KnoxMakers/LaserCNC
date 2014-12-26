@@ -9,7 +9,7 @@
       %input{type: 'checkbox', name: 'public'}
       Make File Public (Anyone will be able to see this file)
 .col-md-12
-  .panel.panel-default
+  .panel.panel-info
     .panel-heading
       %h3.panel-title
         Uploaded Files
@@ -17,20 +17,25 @@
       %table.table
         %thead
           %tr
-            %th.col-md-5 Filename
+            %th.col-md-4 Filename
             %th.col-md-2 Public
+            %th.col-md-2 Date created
             %th Actions
         %tbody
           - @files.each do |f|
             %tr
-              %td.filename= f.filename
-              %td.public= f.public
+              %td.filename&= f.filename
+              %td.public&= f.public
+              %td&= f.created_at
               %td.actions
-                %a.btn.btn-primary.load{href: f.load_path} Load
-                %a.btn.btn-default.public{href: f.public_path} Make Public
-                %a.btn.btn-danger.delete{href: f.delete_path} Delete
+                %a.load{href: f.load_path}
+                  %span.glyphicon.glyphicon-folder-open.col-md-2
+                %a.public{href: f.public_path}
+                  %span.glyphicon.glyphicon-globe.col-md-2
+                %a.delete{href: f.delete_path}
+                  %span.glyphicon.glyphicon-remove-circle.col-md-2
 .col-md-12
-  .panel.panel-default
+  .panel.panel-info
     .panel-heading
       %h3.panel-title
         Public Files
@@ -38,14 +43,14 @@
       %table.table
         %thead
           %tr
-            %th.col-md-5 Filename
+            %th.col-md-6 Filename
             %th.col-md-2 Owner
             %th Actions
         %tbody
           - @public.each do |f|
             %tr
-              %td.filename= f.filename
-              %td.owner= f.user.username
+              %td.filename&= f.filename
+              %td.owner&= f.user.username
               %td.actions
                 %a.btn.btn-primary.load{href: f.load_path} Load
 

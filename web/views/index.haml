@@ -1,2 +1,12 @@
 %h1 Welcome to the Goldfinger File Manager
-%h3 This software is still in alpha.
+%h3 Info about Goldfinger
+%hr
+- @messages.each do |m|
+  .panel.panel-info
+    .panel-heading
+      %h3.panel-title
+        &= m.title
+        \-
+        =m.created_at
+    .panel-body
+      &= m.message

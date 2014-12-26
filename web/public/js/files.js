@@ -13,18 +13,19 @@ $(document).ready(function(){
        'msgInvalidFileExtension': 'Invalid File Type.  Only .ngc files should be uploaded'});
   
   $('a.load').click(function(event){
-    event.preventDefault(); 
-    $.post(
-      $(this).attr('href'),
-      function(data){
-	var d = $.parseJSON(data);
-	var type = 'danger';
-        console.log(d.msg);
-	if(d.status == 'success'){
-	  type = 'success';
-	}
-	$('#alert-wrapper').append(create_alert(type, d.msg));
-      });
+    event.preventDefault();
+    $.post($(this).attr('href'))
+    .done(function(data){
+        var d = $.parseJSON(data);
+        $('#alert-wrapper').append(
+            create_alert('success', d.message));
+    })
+    .fail(function(data){
+        console.log(data);
+        var msg = JSON.parse(data.responseText);
+        $('#alert-wrapper').append(
+            create_alert('danger', msg.errors));
+    });
   });
 
   $('a.public').click(function(event){
@@ -33,31 +34,32 @@ $(document).ready(function(){
     $.post(
       $(that).attr('href'),
       function(data){
-	var d = $.parseJSON(data);
+        var d = $.parseJSON(data);
         console.log(d.msg);
-	if(d.status == 'success'){
-	  $(that).closest('tr').find('td.public').text(d.msg);
-	} else {
-	  $('#alert-wrapper').append(create_alert(d.status, d.msg));
-	}
+        if(d.status == 'success'){
+          $(that).closest('tr').find('td.public').text(d.msg);
+        } else {
+          $('#alert-wrapper').append(create_alert(d.status, d.msg));
+        }
       });
   });
 
   $('a.delete').click(function(event){
-    event.preventDefault();
-    var that = this;
-    $.ajax({
-      url: $(this).attr('href'),
-      type: 'DELETE',
-      success: function(data){
-	var d = $.parseJSON(data);
-        console.log(data);
-	if (d.status == 'success'){
-	  $(that).closest('tr').remove();
-	} else {
-	  $('#alert-wrapper').append(create_alert('danger', d.msg));
-	}
-      }
-    });
+        event.preventDefault();
+        var that = this;
+        $.ajax({
+            url: $(this).attr('href'),
+            type: 'DELETE'
+        })
+        .done(function(data){
+            var d = $.parseJSON(data);
+            console.log(data);
+            $(that).closest('tr').remove();
+        })
+        .fail(function(data){
+            var d = $.parseJSON(data);
+            console.log(data);
+            $('#alert-wrapper').append(create_alert('danger', d.msg));
+        });
   });
 });

@@ -1,25 +1,58 @@
+#flash
 %h1
   Admin Panel
+.row-fluid
+  .col-md-12
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title
+          Post message to users
+      .panel-body
+        %form#post-form.form-horizontal{action: '/post_message', method: 'post', role: 'form'}
+          .form-group
+            %label.col-md-1.control-label{for: "title"} Title
+            .col-md-11
+              %input.form-control{type: 'text', name: 'title'}
+          .form-group
+            %label.col-md-1.control-label{for: "message"} Message
+            .col-md-11
+              %textarea.form-control{name: 'message', rows: '5'}
+          .form-group
+            .col-md-offset-1
+              %button.btn.btn-default
+                Submit
+.row-fluid
+  .col-md-12
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title
+          Users
+      .panel-body
+        %table.table
+          %thead
+            %tr
+              %th Username
+              %th First Name
+              %th Last Name
+              %th Email
+              %th.col-md-1 Active
+              %th.col-md-1 Admin
+              %th Actions
+          %tbody
+            - @users.each do |user|
+              %tr
+                %td&= user.username
+                %td&= user.firstname
+                %td&= user.lastname
+                %td&= user.email
+                %td
+                  %input{type: 'checkbox', name: 'active_'+user.id.to_s, checked: user.active ? true : nil}
+                 
+                %td
+                  %input{type: 'checkbox', name: 'admin_'+user.id.to_s, checked: user.admin ? true : nil}
+                %td 
+                  %a.delete-user{href: "/users/#{user.id}"}
+                    %span.glyphicon.glyphicon-remove-circle
 
-%a.btn.btn-default{href: "/users/new"} Add User
- 
-%table.table
-  %thead
-    %tr
-      %th Username
-      %th First Name
-      %th Last Name
-      %th Email
-      %th Admin
-      %th Actions
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= user.username
-        %td= user.firstname
-        %td= user.lastname
-        %td= user.email
-        %td= user.admin ? "Yes" : "No"
-        %td 
-          %a.btn.btn-default{href: "/user/#{user.id}/edit"} Edit
-          %a.btn.btn-danger{href: "/user/#{user.id}/delete"} Delete
+%script{src: 'js/admin.js'}
+

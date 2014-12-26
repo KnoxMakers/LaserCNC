@@ -1,9 +1,11 @@
 # Check if files directory exists
 # create if it doesn't
-Dir.mkdir FILESTORE if !File.directory?(FILESTORE)
+
+fs = Goldfinger::App::FILESTORE
+Dir.mkdir fs if !File.directory?(fs)
 
 # Create development admin account
-u = User.new
+u = Goldfinger::App::User.new
 u.username = 'admin'
 u.firstname = 'Joe'
 u.lastname = 'Smith'
@@ -16,7 +18,7 @@ u.admin = true
 u.save
 
 # Create development non-admin user
-u = User.new
+u = Goldfinger::App::User.new
 u.username = 'test'
 u.firstname = 'Bob'
 u.lastname = 'Someone'

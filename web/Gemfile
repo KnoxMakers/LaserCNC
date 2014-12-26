@@ -7,6 +7,7 @@ gem "sinatra-contrib"
 gem "sqlite3"
 gem "activerecord"
 gem "sinatra-activerecord"
+gem 'protected_attributes'
 gem "haml"
 gem "bcrypt"
 
