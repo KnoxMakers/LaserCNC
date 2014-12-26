@@ -10,6 +10,10 @@
       %a.navbar-brand{:href => "/"}Goldfinger
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
+        - if @current_user
+          %li
+            %a{href: "/profile"}
+              = @current_user.username
         %li 
           - if @current_user
             %a{href: "/logout"}Logout
