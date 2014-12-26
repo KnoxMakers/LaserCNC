@@ -34,7 +34,7 @@ $('.delete-user').click(function(event){
     });
 });
 
-$('#post-form').click(function(event){
+$('#submit-post').click(function(event){
     event.preventDefault();
     var postData = $('#post-form').serializeArray();
     $.ajax({
@@ -51,8 +51,6 @@ $('#post-form').click(function(event){
     .fail(function(data){
         console.log(data);
         var msgs = JSON.parse(data.responseText)['errors'];
-        for (i = 0; i < msgs.length; i++){
-            create_alert(msgs[i], 'danger');
-        }
+        create_alert(msgs, 'danger');
     });
 });
