@@ -351,7 +351,7 @@ module Goldfinger
       filename = uf[:filename]
 
       # Check filename and extension
-      redirect '/files' unless filename =~ /\A\w*.ngc\z/
+      redirect '/files' unless filename =~ /\A[A-Za-z0-9\-_]*.ngc\z/
       # Check file using Unix File command
       redirect '/files' unless `file #{uf[:tempfile].path}` =~ /: ASCII text\n\z/
 
