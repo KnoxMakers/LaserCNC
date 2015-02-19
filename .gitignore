@@ -1,2 +1,9 @@
 # Ignore files left by Macs
 .DS_Store
+
+# Don't track sqlite files
+*.db
+
+# Don't track files that were uploaded
+# to web app
+web/files/
