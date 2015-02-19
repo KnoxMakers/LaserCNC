@@ -4,9 +4,9 @@
 - @messages.each do |m|
   .panel.panel-info
     .panel-heading
-      %h3.panel-title
-        &= m.title
-        \-
+      %h3.panel-title{style: "display: inline-block;"}
+        = m.title
+      .pull-right
         =m.created_at
     .panel-body
       &= m.message
